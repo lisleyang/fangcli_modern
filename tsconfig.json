@@ -7,9 +7,6 @@
         "module": "commonjs",   //模块化的标准
         "typeRoots": [                  //如果指定了typeRoots，只有typeRoots下面的包才会被解析 
             "node_modules/@types"
-        ],
-        "types": [          //如果指定了types，只有被列出来的声明文件才会被解析；设为[]禁止自动引用解析
-            "jquery"
         ]
     },
     "exclude": [
