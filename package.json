@@ -36,6 +36,8 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^3.0.2",
     "mocha": "^5.2.0",
-    "phantomjs": "^2.1.7"
+    "nightwatch": "^0.9.21",
+    "phantomjs": "^2.1.7",
+    "selenium-server": "2.53.0"
   }
 }

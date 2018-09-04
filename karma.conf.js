@@ -37,6 +37,7 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    //不知道为什么，不写preprocessors测试不执行
     preprocessors: {
       // add webpack as preprocessor
       'test/unit/index.ts': [ 'webpack' ]
