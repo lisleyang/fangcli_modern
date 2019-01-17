@@ -1,17 +1,34 @@
 const path = require('path');
+const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+let page_list = fs.readdirSync(path.resolve(__dirname,'../','src/pages'))
+let script_list = fs.readdirSync(path.resolve(__dirname,'../','src/scripts')).filter(el=>el.indexOf('utils')<0)
+console.log(page_list)
+console.log(script_list)
+
+let entry = {}
+script_list.forEach(script=>{
+    entry[script.replace(/^([^\.]*)\.[t|j]s/,'$1')] = path.resolve(__dirname,'../src/scripts/',script)
+})
+
+let htmlWebpackPlugins = page_list.map(page=>{
+    return new HtmlWebpackPlugin({
+        title: 'Development',
+        template: path.resolve(__dirname, "../src/pages", page),
+        filename: page,
+        inject: "body",
+        chunks: [page.replace(/^([^\.]*)\.html/,'$1')]
+    })
+})
 
 module.exports = {
     // context是给其他路径作为根路径的，比如src 
     // 参考http://www.qinshenxue.com/article/20170315092242.html
     //context: path.resolve(__dirname, '../src/script'),
-    entry: {
-        "login" : path.resolve(__dirname,'../src/scripts/login'),
-        "login1" : path.resolve(__dirname,'../src/scripts/login1')
-        // "pay_buy_tianxiayun": [path.resolve(__dirname, '../src/script/common'), path.resolve(__dirname, '../src/script/pay_buy_tianxiayun')],
-        // "pay_order_manage": path.resolve(__dirname, '../src/script/pay_order_manage')
-    },
+    entry,
     //不打包项
     //import * as $ from jquery ，这时候就不会打包进去
     externals: {
@@ -72,18 +89,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        // new CleanWebpackPlugin([path.resolve(__dirname, '../dist/')], {
-        //     root: path.resolve(__dirname, '../')
-        // }),
-        
-        // new HtmlWebpackPlugin({
-        //     title: 'Development',
-        //     template: path.resolve(__dirname, "../src/pages", "pay_order_manage.html"),
-        //     filename: "pay_order_manage.html",
-        //     inject: "body",
-        //     chunks: ["pay_order_manage"]
-        // }),
-        // new ExtractTextPlugin("assets/css/[name].css")
-    ]
+    plugins : [...htmlWebpackPlugins]
 }
