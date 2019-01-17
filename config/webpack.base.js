@@ -6,8 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 let page_list = fs.readdirSync(path.resolve(__dirname,'../','src/pages'))
 let script_list = fs.readdirSync(path.resolve(__dirname,'../','src/scripts')).filter(el=>el.indexOf('utils')<0)
-console.log(page_list)
-console.log(script_list)
+
 
 let entry = {}
 script_list.forEach(script=>{
@@ -89,5 +88,5 @@ module.exports = {
             }
         ]
     },
-    plugins : [...htmlWebpackPlugins]
+    plugins : [new CleanWebpackPlugin(['../dist']),...htmlWebpackPlugins]
 }

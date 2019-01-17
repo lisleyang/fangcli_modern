@@ -9,21 +9,10 @@ let config = merge(baseConfig, {
     },
     mode : 'development',
     devtool : "inline-source-map",
-    // plugins : [
-    //     new HtmlWebpackPlugin({
-    //         title: 'Development',
-    //         template: path.resolve(__dirname, "../src/pages", "login.html"),
-    //         filename: 'login.html',   //默认位置和output.path相同
-    //         // template : 'index.html',
-    //         // filename : 'index.html',
-    //         inject: "body",
-    //         chunks: ["login"]
-    //     })
-    // ],
-    //热重载
+    //热重载     只有webpack-dev-server有用,因为webpack-dev-server自己开了一个服务，需要端口；webpack-dev-middleware没用。
     devServer: {
         contentBase: path.join(__dirname, '../dist'),
-        // port: 9000,
+        port: 9000,
         proxy: {
             '/api': {
                 target: 'http://a.txyun.test.fang.com',
