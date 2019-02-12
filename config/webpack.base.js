@@ -41,7 +41,7 @@ module.exports = {
     },
     // 处理文件的别名、拓展名等
     resolve: {
-        extensions: ['.ts','.js'],
+        extensions: ['.js','.ts'],
         alias: {
             vue: 'vue/dist/vue.js'
         }
@@ -49,21 +49,10 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
-            }
-            ,
-            // {
-            //     test: /\.js$/,
-            //     exclude: /node_modules/,
-            //     loader: "babel-loader",
-            //     options: {
-            //         "presets": [
-            //             ["env", { "targets": { "browsers": ["ie >= 9"] }, "useBuiltIns": true }]
-            //         ]
-            //     }
-            // }, 
+                test: /\.[j|t]sx?$/,
+                exclude: /node_modules/,
+                use: "babel-loader"
+            }, 
             {
                 test: /\.css$/,
                 /* use: ["style-loader", "css-loader"] */
@@ -88,5 +77,11 @@ module.exports = {
             }
         ]
     },
-    plugins : [new CleanWebpackPlugin(['../dist']),...htmlWebpackPlugins]
+    plugins : [
+        new CleanWebpackPlugin(['./dist'],{
+            root : path.resolve(__dirname,'..'),
+            verbose: true
+        }),
+        ...htmlWebpackPlugins
+    ]
 }

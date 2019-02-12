@@ -1,0 +1,16 @@
+{
+    "presets": [
+        ["@babel/preset-env",{
+            "targets": {
+                "browsers": ["defaults","ie >= 9"],  //使用browserslist；可在https://browserl.ist/中查看
+            },
+            //是否将ES6的模块化语法转译成其他类型
+            //参数："amd" | "umd" | "systemjs" | "commonjs" | false，默认为'commonjs'
+            "modules": "false",
+            //是否自动引入polyfill，开启此选项必须保证已经安装了babel-polyfill
+            "useBuiltIns": "usage" 
+        }],
+        "@babel/preset-typescript",
+    ],
+    "plugins": ["@babel/plugin-proposal-class-properties"]
+}   
